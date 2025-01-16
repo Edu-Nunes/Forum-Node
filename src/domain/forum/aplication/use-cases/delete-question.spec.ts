@@ -13,17 +13,35 @@ describe('Delete Question', () => {
         inMemoryQuestionRepository = new InMemoryQuestionRepository()
         sut = new DeleteQuestionUseCase(inMemoryQuestionRepository)
     })
-    it('it shold be able delete a question' , async () => {
-
-        const newQuestion = makeQuestion({}, new UniqueId('question-1'))
-        
-        await inMemoryQuestionRepository.create(newQuestion)
-   
-
-
-        await sut.execute({
-            questionId : 'question-1'
+    it('Should be able to delete a answer', async () => {
+            const newQuestion = makeQuestion(
+                {
+                    authorId : new UniqueId('author-1')
+                },
+                new UniqueId('answer-1')
+            )
+            await inMemoryQuestionRepository.create(newQuestion)
+            
+            await sut.execute({
+                questionId : 'answer-1',
+                authorId : 'author-1'
+            })
+            expect(inMemoryQuestionRepository.items).toHaveLength(0)
         })
-        expect(inMemoryQuestionRepository.items).toHaveLength(0)
-    })
+        it('Shold be able to delete a question from another user' , async()=>{
+                const newQuestion = makeQuestion(
+                    {
+                        authorId : new UniqueId('author-1')
+                    },
+                    new UniqueId('question-1')
+                )
+                await inMemoryQuestionRepository.create(newQuestion)
+        
+                expect(()=>{
+                    return sut.execute({
+                        questionId : 'answer-1',
+                        authorId : 'author-2'
+                    })
+                }).rejects.toBeInstanceOf(Error)
+            })
 })

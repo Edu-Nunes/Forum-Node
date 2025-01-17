@@ -23,11 +23,11 @@ describe('Fecth recents questions', () => {
         await inMemoryAnswerRepository.create(makeAnswer(
             {questionId : new UniqueId('1')}
         ))
-        const  { answer }= await sut.execute({
-            questionId: '1',
+        const  result  = await sut.execute({
+            questionId: new UniqueId('1'),
             page:1
         })
-        expect(answer).toHaveLength(3)
+        expect(result.value?.answer).toHaveLength(3)
     })
     it('Should be able to fecth pagineted answers ' , async () => {
         for(let i = 1; i <= 22 ; i++){
@@ -35,10 +35,10 @@ describe('Fecth recents questions', () => {
                 questionId : new UniqueId('question-1'),
             }))
         }
-        const {answer} = await sut.execute({
-            questionId :'question-1',
+        const result = await sut.execute({
+            questionId :new UniqueId('question-1'),
             page:2
         })
-        expect(answer).toHaveLength(2)
+        expect(result.value?.answer).toHaveLength(2)
     })
 })

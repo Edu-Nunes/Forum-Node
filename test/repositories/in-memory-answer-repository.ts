@@ -1,6 +1,7 @@
 import { PaginationParams } from "@/core/repositories/pagination-params"
 import { AnswersRepository } from "@/domain/forum/aplication/repositories/answers-repositories"
 import { Answer } from "@/domain/forum/enterprise/entities/answer"
+import { UniqueId } from "@/core/entities/unique-id"
 
 export class InMemoryAnswerRepository implements AnswersRepository{
     public items: Answer[]=[]
@@ -25,10 +26,10 @@ export class InMemoryAnswerRepository implements AnswersRepository{
             })
             this.items[itemIndex] = answer
         }
-        async findManyByQuestionId(questionId : string , {page}:PaginationParams){
-            const answer = this.items.filter(item => item.questionId === questionId)
+        async findManyByQuestionId(answerId : UniqueId , {page}:PaginationParams){
+            const answerComments = this.items.filter(item => item.questionId.toString() === answerId.toString())
             .slice((page -1 )* 20, page * 20  )  
-            return answer
+            return answerComments
         }
 }
  

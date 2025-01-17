@@ -2,14 +2,16 @@ import { UniqueId } from '@/core/entities/unique-id';
 import { QuestionRepository } from '../repositories/question-repositories';
 import { QuestionComment } from '../../enterprise/entities/question-coment';
 import { QuestionCommentsRepository } from '../repositories/question-comment-repository';
+import { Either, left, right } from '@/core/either';
+import { ResourceNotFoundError } from './errors/resource-not-found-error';
+import { NotAllowedError } from './errors/resource-not-allowed-error';
 
 interface DeleteQuestionCommentUseCaseRequest {
   authorId : string 
   questionCommentId : string 
 }
-interface DeleteQuestionCommentUseCaseResponse {}
+type  DeleteQuestionCommentUseCaseResponse = Either<ResourceNotFoundError | NotAllowedError,{}>
     
- 
 
 export class DeleteQuestionCommentUseCase {
     constructor(
@@ -20,19 +22,20 @@ export class DeleteQuestionCommentUseCase {
       
       const questionComment = await this.questionCommentRepository.findById(questionCommentId);
   
-      if (!questionComment) {
-        throw new Error('Question Comment not found.');
-      }
-  
-      
+    if (!questionComment) {
+      return left(new ResourceNotFoundError())
+    }
+
       if (questionComment.authorId !== authorId) {
-        throw new Error('Not Allowed.');
+        return left(new NotAllowedError())
       }
+
+      
 
       await this.questionCommentRepository.delete(questionComment);
   
       
-      return {};
+      return right({});
         
      
     }

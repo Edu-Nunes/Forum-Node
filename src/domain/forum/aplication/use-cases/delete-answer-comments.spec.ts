@@ -2,7 +2,7 @@ import { UniqueId } from "@/core/entities/unique-id";
 import { DeleteAnswerCommentUseCase } from "./delete-answer-comments";
 import { InMemoryAnswerCommentRepository } from "test/repositories/in-memory-answer-comment-repository";
 import { makeAnswerComment } from "test/factories/make-answer-comments";
-
+import { ResourceNotFoundError } from "./errors/resource-not-found-error";
 
 
 let inMemoryAnswerCommentRepository : InMemoryAnswerCommentRepository
@@ -36,12 +36,12 @@ describe('Delete Answer comment', () => {
             )
             await inMemoryAnswerCommentRepository.create(newAnswerComment)
             
+            const result = await sut.execute({
+                answerCommentId : 'answer-1',
+                authorId : 'author-2'
+            })
             
-            expect( () => {
-                return sut.execute({
-                    answerCommentId : 'answer-1',
-                    authorId : 'author-2'
-                })
-            }).rejects.toBeInstanceOf(Error)
+            expect(result.isLeft()).toBe(true)
+            expect(result.value).toBeInstanceOf(ResourceNotFoundError)    
         })
 })

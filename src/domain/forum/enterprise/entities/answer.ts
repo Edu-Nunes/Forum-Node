@@ -1,6 +1,8 @@
 import { Entity } from '@/core/entities/entities'
 import { UniqueId } from '@/core/entities/unique-id'
 import { Optional } from '@/core/types/optional'
+7
+
 
 export interface AnswerProps {
   authorId: UniqueId
@@ -43,7 +45,7 @@ export class Answer extends Entity<AnswerProps> {
     this.props.content = content
   }
 
-  static create(props: Optional<AnswerProps, 'createdAt'>, id?: UniqueId) {
+  static create(props: Optional<AnswerProps, 'createdAt' >, id?: UniqueId) {
     const answer = new Answer(
       {
         ...props,

@@ -1,4 +1,4 @@
-import { PaginationParams } from "@/core/repositories/pagination-params";
+import { PaginationParams } from "@/domain/forum/enterprise/entities/repositories/pagination-params";
 import { Question } from "../../enterprise/entities/question";
 import { Slug } from "../../enterprise/entities/value-objects/slug";
 

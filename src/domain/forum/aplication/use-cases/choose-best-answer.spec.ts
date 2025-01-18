@@ -5,15 +5,22 @@ import { makeQuestion } from 'test/factories/make-question'
 import { makeAnswer } from 'test/factories/make-answer'
 import { UniqueId } from '@/core/entities/unique-id'
 import { NotAllowedError } from './errors/resource-not-allowed-error'
+import { InMemoryQuestionAttachmentsRepository } from 'test/repositories/in-memory-question-attachment-repository'
 
 
 let inMemoryQuestionRepository : InMemoryQuestionRepository
+let inMemoryQuestionAttachmentRepository : InMemoryQuestionAttachmentsRepository
 let inMemoryAwnserRepository : InMemoryAnswerRepository
 let sut : chooseQuestionBestAnswerUseCase
 
 describe('Choose Question best answer', () => {
   beforeEach(( )=> {
-    inMemoryQuestionRepository = new InMemoryQuestionRepository()
+    inMemoryQuestionAttachmentRepository = new InMemoryQuestionAttachmentsRepository ()
+
+    inMemoryQuestionRepository = new InMemoryQuestionRepository(
+      inMemoryQuestionAttachmentRepository
+    )
+
     inMemoryAwnserRepository = new InMemoryAnswerRepository()
     sut = new chooseQuestionBestAnswerUseCase(inMemoryAwnserRepository, inMemoryQuestionRepository)
   })

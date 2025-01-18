@@ -1,14 +1,19 @@
 import { InMemoryQuestionRepository } from "test/repositories/in-memory-question-repositories";
 import { makeQuestion } from "test/factories/make-question";
 import { FechtRecentQuestionsUseCase } from "./fecth-recent-questions";
+import { InMemoryQuestionAttachmentsRepository } from "test/repositories/in-memory-question-attachment-repository";
 
-
+let inMemoryQuestionAttachmentRepository : InMemoryQuestionAttachmentsRepository
 let inMemoryQuestionRepository : InMemoryQuestionRepository
 let sut : FechtRecentQuestionsUseCase
 
 describe('Fecth recents questions', () => {
     beforeEach( () => {
-        inMemoryQuestionRepository = new InMemoryQuestionRepository()
+        inMemoryQuestionAttachmentRepository = new InMemoryQuestionAttachmentsRepository()
+
+    inMemoryQuestionRepository = new InMemoryQuestionRepository(
+      inMemoryQuestionAttachmentRepository
+    )
         sut = new FechtRecentQuestionsUseCase(inMemoryQuestionRepository)
     })
     it('Should be able to fecth recent questions' , async () => {

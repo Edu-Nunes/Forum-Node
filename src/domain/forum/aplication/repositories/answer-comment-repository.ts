@@ -1,6 +1,6 @@
 import { UniqueId } from "@/core/entities/unique-id";
 import { AnswerComment } from "../../enterprise/entities/answer-comment";
-import { PaginationParams } from "@/core/repositories/pagination-params";
+import { PaginationParams } from "@/domain/forum/enterprise/entities/repositories/pagination-params";
 
 
 export interface AnswerCommentsRepository {

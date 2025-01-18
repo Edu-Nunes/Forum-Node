@@ -1,5 +1,5 @@
 import { UniqueId } from "@/core/entities/unique-id"
-import { PaginationParams } from "@/core/repositories/pagination-params"
+import { PaginationParams } from "@/domain/forum/enterprise/entities/repositories/pagination-params"
 import { AnswerCommentsRepository } from "@/domain/forum/aplication/repositories/answer-comment-repository"
 import { AnswerComment } from "@/domain/forum/enterprise/entities/answer-comment"
 

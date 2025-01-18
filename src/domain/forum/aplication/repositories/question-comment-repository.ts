@@ -1,4 +1,4 @@
-import { PaginationParams } from "@/core/repositories/pagination-params";
+import { PaginationParams } from "@/domain/forum/enterprise/entities/repositories/pagination-params";
 import { QuestionComment } from "../../enterprise/entities/question-coment";
 import { UniqueId } from "@/core/entities/unique-id";
 

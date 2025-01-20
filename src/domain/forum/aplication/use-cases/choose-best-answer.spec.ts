@@ -6,8 +6,9 @@ import { makeAnswer } from 'test/factories/make-answer'
 import { UniqueId } from '@/core/entities/unique-id'
 import { NotAllowedError } from './errors/resource-not-allowed-error'
 import { InMemoryQuestionAttachmentsRepository } from 'test/repositories/in-memory-question-attachment-repository'
+import { InMemoryAnswerAttachmentsRepository } from 'test/repositories/in-memory-answer-attachments-repository'
 
-
+let inMemoryAnswerAttachmentsRepository : InMemoryAnswerAttachmentsRepository
 let inMemoryQuestionRepository : InMemoryQuestionRepository
 let inMemoryQuestionAttachmentRepository : InMemoryQuestionAttachmentsRepository
 let inMemoryAwnserRepository : InMemoryAnswerRepository
@@ -17,11 +18,15 @@ describe('Choose Question best answer', () => {
   beforeEach(( )=> {
     inMemoryQuestionAttachmentRepository = new InMemoryQuestionAttachmentsRepository ()
 
+    inMemoryAnswerAttachmentsRepository = new InMemoryAnswerAttachmentsRepository ()
+
     inMemoryQuestionRepository = new InMemoryQuestionRepository(
       inMemoryQuestionAttachmentRepository
     )
 
-    inMemoryAwnserRepository = new InMemoryAnswerRepository()
+    inMemoryAwnserRepository = new InMemoryAnswerRepository(
+      inMemoryAnswerAttachmentsRepository
+    )
     sut = new chooseQuestionBestAnswerUseCase(inMemoryAwnserRepository, inMemoryQuestionRepository)
   })
   it('should be able to choose the question best answer' , async () => {

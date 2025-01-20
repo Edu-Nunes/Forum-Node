@@ -2,14 +2,17 @@ import { InMemoryAnswerRepository } from "test/repositories/in-memory-answer-rep
 import { FetchQuestionAnswerUseCase } from "./fecth-question-answer";
 import { makeAnswer } from "test/factories/make-answer";
 import { UniqueId } from "@/core/entities/unique-id";
+import { InMemoryAnswerAttachmentsRepository } from "test/repositories/in-memory-answer-attachments-repository";
 
-
+let inMemoryAnswerAttachmentsRepository : InMemoryAnswerAttachmentsRepository
 let inMemoryAnswerRepository : InMemoryAnswerRepository
 let sut : FetchQuestionAnswerUseCase
 
 describe('Fecth recents questions', () => {
     beforeEach( () => {
-        inMemoryAnswerRepository = new InMemoryAnswerRepository()
+        inMemoryAnswerAttachmentsRepository = new InMemoryAnswerAttachmentsRepository()
+        inMemoryAnswerRepository = new InMemoryAnswerRepository(
+        inMemoryAnswerAttachmentsRepository)
         sut = new FetchQuestionAnswerUseCase(inMemoryAnswerRepository)
     })
     it('Should be able to fecth recent questions' , async () => {

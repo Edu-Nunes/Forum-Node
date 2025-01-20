@@ -25,7 +25,11 @@ describe('Get Question by slug', () => {
             slug : new Slug('example-question'),
         })
         
-        expect(result.value?.question!.id).toBeTruthy()
-        expect(result.value?.question!.title).toEqual(newQuestion.title)
+        expect(result.value).toMatchObject({
+            question : expect.objectContaining({
+                title : newQuestion.title
+            })
+        })
+        
     })
 })

@@ -2,8 +2,8 @@ import { UniqueId } from "@/core/entities/unique-id";
 import { DeleteQuestionCommentUseCase } from "./delete-question-comment";
 import { InMemoryQuestionCommentRepository } from "test/repositories/in-memory-question-comments";
 import { makeQuestionComment } from "test/factories/make-question-comments";
-import { NotAllowedError } from "./errors/resource-not-allowed-error";
-import { ResourceNotFoundError } from "./errors/resource-not-found-error";
+import { NotAllowedError } from "../../../../core/errors/errors/resource-not-allowed-error";
+import { ResourceNotFoundError } from "../../../../core/errors/errors/resource-not-found-error";
 
 
 

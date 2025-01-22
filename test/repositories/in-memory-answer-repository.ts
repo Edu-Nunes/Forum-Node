@@ -3,6 +3,8 @@ import { AnswersRepository } from "@/domain/forum/aplication/repositories/answer
 import { Answer } from "@/domain/forum/enterprise/entities/answer"
 import { UniqueId } from "@/core/entities/unique-id"
 import { AnswerAttachmentsRepository } from "@/domain/forum/aplication/repositories/answer-attachment-repository"
+import { DomainEvents } from "@/core/events/domain-events"
+import { AnswerCreatedEvent } from "@/domain/forum/enterprise/events/answer-created-event"
 
 
 export class InMemoryAnswerRepository implements AnswersRepository{
@@ -14,6 +16,7 @@ export class InMemoryAnswerRepository implements AnswersRepository{
 
     async create(answer:Answer):Promise<void>{
         this.items.push(answer)
+        DomainEvents.dispatchEventsForAggregate(answer.id)
     }
     async findById(id: string): Promise<Answer | null> {
             const answer = this.items.find( (item) => item.id.toString() === id )
@@ -32,6 +35,9 @@ export class InMemoryAnswerRepository implements AnswersRepository{
                 item.id === answer.id
             })
             this.items[itemIndex] = answer
+            
+            DomainEvents.dispatchEventsForAggregate(answer.id)
+            
         }
         async findManyByQuestionId(answerId : UniqueId , {page}:PaginationParams){
             const answerComments = this.items.filter(item => item.questionId.toString() === answerId.toString())

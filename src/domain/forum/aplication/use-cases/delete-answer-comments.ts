@@ -3,8 +3,8 @@ import { AnswersRepository } from '../repositories/answers-repositories';
 import { AnswerComment } from '../../enterprise/entities/answer-comment';
 import { AnswerCommentsRepository } from '../repositories/answer-comment-repository';
 import { Either, left, Left, right } from '@/core/either';
-import { ResourceNotFoundError } from './errors/resource-not-found-error';
-import { NotAllowedError } from './errors/resource-not-allowed-error';
+import { ResourceNotFoundError } from '../../../../core/errors/errors/resource-not-found-error';
+import { NotAllowedError } from '../../../../core/errors/errors/resource-not-allowed-error';
 
 interface DeleteAnswerCommentUseCaseRequest {
   authorId : string 

@@ -2,7 +2,7 @@ import { UniqueId } from "@/core/entities/unique-id";
 import { DeleteAnswerCommentUseCase } from "./delete-answer-comments";
 import { InMemoryAnswerCommentRepository } from "test/repositories/in-memory-answer-comment-repository";
 import { makeAnswerComment } from "test/factories/make-answer-comments";
-import { ResourceNotFoundError } from "./errors/resource-not-found-error";
+import { ResourceNotFoundError } from "../../../../core/errors/errors/resource-not-found-error";
 
 
 let inMemoryAnswerCommentRepository : InMemoryAnswerCommentRepository
